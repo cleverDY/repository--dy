@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--名称空间-->
+
+<mapper namespace="com.cleverDY.mapper.OrderMapper">
+    <insert id="insertOrder">
+        insert into mysqlstudy.tb_order (orderid, goodname, ordernumber, ordertime, orderprice)
+        values (#{orderId}, #{goodName}, #{orderNumber}, #{orderTime}, #{orderPrice})
+    </insert>
+
+    <update id="updateDynamic">
+        UPDATE mysqlstudy.tb_order
+        <set>
+            <if test="goodName != null">
+                goodName = #{goodName},
+            </if>
+            <if test="orderNum != null">
+                orderNumber = #{orderNumber},
+            </if>
+            <if test="orderTime != null">
+                orderTime = #{orderTime},
+            </if>
+            <if test="orderPrice != null">
+                orderPrice = #{orderPrice},
+            </if>
+        </set>
+        WHERE orderid = #{orderId}
+    </update>
+
+    <delete id="deleteById">
+        delete
+        from mysqlstudy.tb_order
+        where orderId= #{orderId};
+    </delete>
+
+    <delete id="batchDelete">
+        DELETE FROM mysqlstudy.tb_order
+        WHERE orderId IN
+        <foreach collection="list" item="value" open="(" close=")" separator="," >
+            #{value}
+        </foreach>
+    </delete>
+
+    <select id="selectAll" resultType="com.cleverDY.pojo.Order">
+        select orderId , goodname , orderNumber , orderTime,orderPrice
+        from mysqlstudy.tb_order;
+    </select>
+
+    <select id="selectById" resultType="com.cleverDY.pojo.Order">
+        select orderId , goodname , orderNumber , orderTime,orderPrice
+        from mysqlstudy.tb_order
+        where orderId=#{orderId};
+    </select>
+    <select id="selectAllDateDESC" resultType="com.cleverDY.pojo.Order">
+        select orderId , goodname , orderNumber , orderTime,orderPrice
+        from mysqlstudy.tb_order
+        order by orderTime DESC ;
+    </select>
+    <select id="selectAllDateASC" resultType="com.cleverDY.pojo.Order">
+        select orderId , goodname , orderNumber , orderTime,orderPrice
+        from mysqlstudy.tb_order
+        order by orderTime ASC ;
+    </select>
+    <select id="selectAllIdDESC" resultType="com.cleverDY.pojo.Order">
+        select orderId , goodname , orderNumber , orderTime,orderPrice
+        from mysqlstudy.tb_order
+        order by orderId DESC ;
+    </select>
+    <select id="selectByGoodName" resultType="com.cleverDY.pojo.Order">
+        select orderId , goodname , orderNumber , orderTime,orderPrice
+        from mysqlstudy.tb_order
+        where goodName=#{goodname};
+    </select>
+    <select id="selectAllPriceASC" resultType="com.cleverDY.pojo.Order">
+        select orderId , goodname , orderNumber , orderTime,orderPrice
+        from mysqlstudy.tb_order
+        order by orderPrice ASC ;
+    </select>
+    <select id="selectAllPriceDESC" resultType="com.cleverDY.pojo.Order">
+        select orderId , goodname , orderNumber , orderTime,orderPrice
+        from mysqlstudy.tb_order
+        order by orderPrice DESC ;
+    </select>
+    <select id="selectList" resultType="com.cleverDY.pojo.Order">
+        select orderId , goodname , orderNumber , orderTime,orderPrice
+        from mysqlstudy.tb_order
+        WHERE goodName = #{goodName}
+    </select>
+
+
+</mapper>

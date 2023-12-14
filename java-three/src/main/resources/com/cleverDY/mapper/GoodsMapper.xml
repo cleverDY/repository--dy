@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--名称空间-->
+
+<mapper namespace="com.cleverDY.mapper.GoodsMapper">
+    <!--  添加操作  -->
+    <insert id="insertGood" >
+        insert into mysqlstudy.tb_goods (goodid, goodname, goodprice, goodNumber)
+        values (#{goodId}, #{goodName}, #{goodPrice}, #{goodNumber})
+    </insert>
+    <!--   删除操作  -->
+    <!--按照序号删除-->
+    <delete id="deleteById">
+        delete
+        from mysqlstudy.tb_goods
+        where goodId = #{goodId};
+    </delete>
+    <!--批量删除-->
+    <delete id="batchDelete">
+        DELETE FROM mysqlstudy.tb_goods
+        WHERE goodId IN
+        <foreach collection="list" item="value" open="(" close=")" separator="," >
+            #{value}
+        </foreach>
+    </delete>
+    <!--  修改操作  -->
+    <update id="updateDynamic">
+        UPDATE mysqlstudy.tb_goods
+        <set>
+            <if test="goodName != null">
+                goodName = #{goodName},
+            </if>
+            <if test="goodPrice != null">
+                goodPrice = #{goodPrice},
+            </if>
+            <if test="goodNumber != null">
+                goodNumber = #{goodNumber},
+            </if>
+        </set>
+        WHERE goodId = #{goodId};
+    </update>
+    <!--  查询操作  -->
+    <!--查询所有-->
+    <select id="selectAll" resultType="com.cleverDY.pojo.Goods">
+        select goodId , goodname , goodprice , goodNumber
+        from mysqlstudy.tb_goods;
+    </select>
+    <!--查询按照名字-->
+    <select id="selectByName" resultType="com.cleverDY.pojo.Goods">
+        select goodId , goodName , goodPrice , goodNumber
+        from mysqlstudy.tb_goods
+        where goodName = #{goodName};
+    </select>
+    <!--查询按照序号-->
+    <select id="selectById" resultType="com.cleverDY.pojo.Goods">
+        select goodId , goodName , goodPrice , goodNumber
+        from mysqlstudy.tb_goods
+        where goodId = #{goodsId};
+    </select>
+    <!--价格升序-->
+    <select id="selectAllPriceASC" resultType="com.cleverDY.pojo.Goods">
+        select goodId , goodName , goodPrice , goodNumber
+        from mysqlstudy.tb_goods
+        order by goodPrice ASC;
+    </select>
+    <!--价格降序-->
+    <select id="selectAllPriceDESC" resultType="com.cleverDY.pojo.Goods">
+        select goodId , goodName , goodPrice , goodNumber
+        from mysqlstudy.tb_goods
+        order by goodPrice DESC ;
+    </select>
+    <select id="selectAllIdASC" resultType="com.cleverDY.pojo.Goods">
+        select goodId , goodName , goodPrice , goodNumber
+        from mysqlstudy.tb_goods
+        order by goodId ASC;
+    </select>
+    <select id="selectList" resultType="com.cleverDY.pojo.Goods">
+        select goodId,goodName , goodPrice , goodNumber
+        from mysqlstudy.tb_goods
+        WHERE goodName = #{goodName}
+    </select>
+
+
+</mapper>
