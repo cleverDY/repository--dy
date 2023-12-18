@@ -14,7 +14,7 @@
     │  │  └─resources
     │  │      └─com
     │  │          └─cleverDY
-    │  │              └─mapper    //Mapper.xml文件
+    │  │              └─mapper    //Mapper.xml文件，在Mapper中写方法，Mapper.xml中实现方法
     │  └─test   //测试
     │      
     └
@@ -99,3 +99,4 @@
         </dependency>
     </dependencies>
 ~~~
+配置完成后就可以编写mapper映射文件(编写SQL)实现功能操作
