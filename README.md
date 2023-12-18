@@ -100,3 +100,53 @@
     </dependencies>
 ~~~
 配置完成后就可以编写mapper映射文件(编写SQL)实现功能操作
+这个项目所用到的Mapper接口的方法
+GoodsMapper:
+
+    //查看所有
+    List<Goods> selectAll();
+    //查看详情
+    Goods selectByName(String goodName);//通过名字
+    Goods selectById(int goodsId);//通过编号
+    //查询指定物品 
+    List<Goods> selectList(String goodsName);
+    //动态条件查询
+    List<Goods> selectAllPriceASC();
+    //价格降序
+    List<Goods> selectAllPriceDESC();
+    //价格升序
+    List<Goods> selectAllIdASC();
+    //添加商品
+    void insertGood(Goods goods);
+    //删除操作
+    void deleteById(int id);
+    //批量删除操作
+    int batchDelete(List<Integer> list);
+    //修改操作
+    void updateDynamic(Goods goods);
+
+OrderMapper:
+
+    //查看所有
+    List<Order> selectAll();
+    //查看详情
+    Order selectById(int id);
+    Order selectByGoodName(String goodName);
+    //动态条件查询
+    List<Order> selectList(String goodsName);//查找指定商品名字的订单
+    List<Order> selectAllDateDESC();//时间降序
+    List<Order> selectAllDateASC();//时间升序
+    List<Order> selectAllIdDESC();//id降序
+    List<Order> selectAllPriceASC();//价格降序
+    List<Order> selectAllPriceDESC();//价格升序
+    //改
+    //动态修改
+    void updateDynamic(Order order);
+    //增
+    void insertOrder(Order orders);
+    //删
+    //删除指定
+    void deleteById(int id);
+    //批量删除
+    int batchDelete(List<Integer> list);
+    
